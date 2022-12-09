@@ -17,7 +17,7 @@ function whois() {
 
 # git commit browser
 # needs fzf. ctrl-m to view commit.
-gitcommitsbrowser() {
+function gitcommitsbrowser() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` \
@@ -32,6 +32,11 @@ function f() {
 }
 
 # usage: countcharacters "count me"
-countcharacters() {
+function countcharacters() {
     echo -n "$1" | wc -m
+}
+
+# sort branches by modification date
+function gitsortbranches() {
+    for branch in `git branch -l | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r
 }
