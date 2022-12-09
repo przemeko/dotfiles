@@ -21,6 +21,8 @@ alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
 alias diskspace_report="df -P -kHl"
 
+alias reload="source ~/.zshrc"
+
 # examples:
 # alias ecr-docker-login='aws ecr get-login-password --region eu-west-1 --profile xxx | docker login --username AWS --password-stdin XXXXXXXX.dkr.ecr.eu-west-1.amazonaws.com'
 # alias sso="aws sso login --profile <profile_name>; export AWS_PROFILE=<profile_name>; yawsso -p <profile_name>"
