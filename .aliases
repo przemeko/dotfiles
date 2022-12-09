@@ -1,0 +1,26 @@
+## git
+alias gitlog='git log --decorate --pretty=format:"%C(yellow)%h %Cred%ad %C(yellow)%an%Cgreen%d %Creset%s" --date=iso'
+alias gitlogbig='git log --decorate --pretty=format:"%C(yellow)%h %Cred%ad %C(yellow)%an%Cgreen%d %Creset%s" --date=iso --name-status'
+alias gitshow='git show -s --pretty="tformat::%h (%s, %ad)" --date=short'
+alias gitgraph='git log --pretty=format:"%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s" --graph'
+alias gitgraphbig="git log --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s%n' --graph --name-status"
+alias gitcommits="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative main..HEAD"
+alias gitdiff="git diff main...HEAD"
+alias gitshowlastchanges="git diff HEAD^ HEAD"
+alias gitbranchessorted="for branch in $(git branch -r | grep -v HEAD);do echo -e $(git show --format='%ci %cr' $branch | head -n 1) \\t$branch; done | sort -r"
+alias gitcommitsmaster="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative master..HEAD"
+alias gitdiffmaster="git diff master...HEAD"
+alias gitundopush="git push -f origin HEAD^:main"
+
+alias historysearch="history | fzf +s --tac"
+
+alias open-ports="lsof -PiTCP -sTCP:LISTEN"
+
+# Recursively delete `.DS_Store` files
+alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+
+alias diskspace_report="df -P -kHl"
+
+# examples:
+# alias ecr-docker-login='aws ecr get-login-password --region eu-west-1 --profile xxx | docker login --username AWS --password-stdin XXXXXXXX.dkr.ecr.eu-west-1.amazonaws.com'
+# alias sso="aws sso login --profile <profile_name>; export AWS_PROFILE=<profile_name>; yawsso -p <profile_name>"
