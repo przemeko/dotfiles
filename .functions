@@ -30,3 +30,8 @@ gitcommitsbrowser() {
 function f() {
 	find . -name "$1" 2>&1 | grep -v 'Permission denied'
 }
+
+# usage: countcharacters "count me"
+countcharacters() {
+    echo -n "$1" | wc -m
+}
