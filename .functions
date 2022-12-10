@@ -16,7 +16,7 @@ function whois() {
 
 
 # git commit browser
-# needs fzf. ctrl-m to view commit.
+# needs fzf and ctrl-m to view commit.
 function gitcommitsbrowser() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
@@ -39,4 +39,13 @@ function countcharacters() {
 # sort branches by modification date
 function gitsortbranches() {
     for branch in `git branch -l | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r
+}
+
+# git ahead/behind info between main and current branch
+# https://stackoverflow.com/questions/20433867/git-ahead-behind-info-between-master-and-branch
+function gitbehindahead() {
+    local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    echo "main...$CURRENT_BRANCH"
+    git rev-list --left-right --count origin/main...HEAD | awk '{print "\033[31m"$1" commits behind\033[0m\n" "\033[34m"$2 " commits ahead\033[0m"}'
+    git rev-list --left-right --pretty=oneline origin/main...HEAD | awk '{if (substr($1,1,1) == "<") print "\033[31m"$0"\033[0m"; else print "\033[34m"$0"\033[0m";}'
 }
