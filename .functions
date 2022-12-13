@@ -45,7 +45,7 @@ function gitsortbranches() {
 # https://stackoverflow.com/questions/20433867/git-ahead-behind-info-between-master-and-branch
 function gitbehindahead() {
     local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    echo "main...$CURRENT_BRANCH"
+    echo "origin/main...$CURRENT_BRANCH"
     git fetch -q  # make sure we up to date
     git rev-list --left-right --count origin/main...HEAD | awk '{print "\033[31m"$1" commits behind\033[0m\n" "\033[34m"$2 " commits ahead\033[0m"}'
     git rev-list --left-right --pretty=oneline origin/main...HEAD | awk '{if (substr($1,1,1) == "<") print "\033[31m"$0"\033[0m"; else print "\033[34m"$0"\033[0m";}'
