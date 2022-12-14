@@ -14,6 +14,16 @@ function whois() {
 	/usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
 }
 
+# find shorthand
+function f() {
+	find . -name "$1" 2>&1 | grep -v 'Permission denied'
+}
+
+# usage: countcharacters "count me"
+function countcharacters() {
+    echo -n "$1" | wc -m
+}
+
 
 # git commit browser
 # needs fzf and ctrl-m to view commit.
@@ -26,15 +36,6 @@ function gitcommitsbrowser() {
                 xargs -I % sh -c 'git show --color=always % | less -R'"
 }
 
-# find shorthand
-function f() {
-	find . -name "$1" 2>&1 | grep -v 'Permission denied'
-}
-
-# usage: countcharacters "count me"
-function countcharacters() {
-    echo -n "$1" | wc -m
-}
 
 # sort branches by modification date
 function gitsortbranches() {
@@ -49,4 +50,26 @@ function gitbehindahead() {
     git fetch -q  # make sure we up to date
     git rev-list --left-right --count origin/main...HEAD | awk '{print "\033[31m"$1" commits behind\033[0m\n" "\033[34m"$2 " commits ahead\033[0m"}'
     git rev-list --left-right --pretty=oneline origin/main...HEAD | awk '{if (substr($1,1,1) == "<") print "\033[31m"$0"\033[0m"; else print "\033[34m"$0"\033[0m";}'
+}
+
+# git amend
+function gitammendandpush {
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    if [ "$branch_name" = "main" ] || [ "$branch_name" = "master" ]; then
+          echo "Your are on the main branch. Aborting."
+          exit 1
+    else
+        echo ""
+    fi
+
+    commits_log=$(git log  --abbrev-commit  main..HEAD)
+    if [ -z "$commits_log" ];
+    then
+        echo "Found no commits. Aborting amend command"
+        exit 1
+    else
+        git add .
+        git commit --amend --no-edit
+        git push --force
+    fi
 }
