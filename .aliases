@@ -18,6 +18,8 @@ alias open-ports="lsof -PiTCP -sTCP:LISTEN"
 
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+# Recursively delete `._` files
+alias cleanup_dot_underscore="find . -name '._*' -type f -ls -delete"
 
 alias diskspace_report="df -P -kHl"
 
