@@ -1,0 +1,5 @@
+# Prevent diplaying a new screen.
+# 
+# oh-my-zsh executes "less" command with -R flag, You may run unset LESS to fallback to default behaviour.
+# more details here: https://stackoverflow.com/questions/33592008/git-log-show-etc-replaces-the-terminal-screen
+unset LESS
