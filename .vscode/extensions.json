@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "vscodevim.vim",
+    "eamodio.gitlens",
+    "alefragnani.project-manager",
+    "esbenp.prettier-vscode",
+    "DavidAnson.vscode-markdownlint",
+    "PKief.material-icon-theme",
+    "Tyriar.sort-lines"
+  ]
+}
