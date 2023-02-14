@@ -1,0 +1,13 @@
+{
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "editor.rename.enablePreview": false,
+  "workbench.editor.enablePreview": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[python]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnType": true
+  },
+  "python.languageServer": "Pylance",
+  "python.formatting.provider": "black"
+}
