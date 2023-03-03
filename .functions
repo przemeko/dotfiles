@@ -80,3 +80,39 @@ function gitammendandpush {
         git push --force
     fi
 }
+
+# Get network info. Ip, mac addresses etc
+# works on osx
+# based on: https://apple.stackexchange.com/questions/191879/how-to-find-the-currently-connected-network-service-from-the-command-line
+
+getnetworkinfo() {
+    YELLOW='\033[0;33m'
+    NC='\033[0m' # No Color
+
+    while read -r line; do
+        sname=$(echo "$line" | awk -F  "(, )|(: )|[)]" '{print $2}')
+        sdev=$(echo "$line" | awk -F  "(, )|(: )|[)]" '{print $4}')
+        # echo "Current service: $sname, $sdev, $currentservice"
+        if [ -n "$sdev" ]; then
+            ifout="$(ifconfig "$sdev" 2>/dev/null)"
+            echo "$ifout" | grep 'status: active' > /dev/null 2>&1
+            rc="$?"
+            if [ "$rc" -eq 0 ]; then
+                currentservice="$sname"
+                currentdevice="$sdev"
+                currentmac=$(echo "$ifout" | awk '/ether/{print $2}')
+                currentip=$(echo "$ifout" | awk '/inet /{print $2}')
+
+                # may have multiple active devices, so echo it here
+                echo -e "ip: ${YELLOW}$currentip${NC}\nservice: $currentservice\ndevice: $currentdevice\nmac: $currentmac"
+                echo "For more details run: 'ifconfig $currentdevice'"
+                echo -e "\n"
+            fi
+        fi
+    done <<< "$(networksetup -listnetworkserviceorder | grep 'Hardware Port')"
+
+    if [ -z "$currentservice" ]; then
+        >&2 echo "Could not find current service"
+        exit 1
+    fi
+}
