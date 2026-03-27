@@ -4,13 +4,15 @@ alias gitlogbig='git log --decorate --pretty=format:"%C(yellow)%h %Cred%ad %C(ye
 alias gitshow='git show -s --pretty="tformat::%h (%s, %ad)" --date=short'
 alias gitgraph='git log --pretty=format:"%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s" --graph'
 alias gitgraphbig="git log --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s%n' --graph --name-status"
-alias gitcommits="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative main..HEAD"
-alias gitdiff="git diff main...HEAD"
+
+alias gitcommits="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative dev..HEAD"
+alias gitdiff="git diff dev...HEAD"
 alias gitshowlastchanges="git diff HEAD^ HEAD"
-alias gitbranchessorted="for branch in $(git branch -r | grep -v HEAD);do echo -e $(git show --format='%ci %cr' $branch | head -n 1) \\t$branch; done | sort -r"
-alias gitcommitsmaster="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative master..HEAD"
+alias gitbranchessorted="for branch in $(git branch -r | grep -v HEAD);do echo -e $(git show --format='%ci %cr' $branch | head -n 1) \\t$branch; done | sort -r" alias gitcommitsmaster="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative master..HEAD"
+alias gitundopush="git push -f origin HEAD^:dev"
+
 alias gitdiffmaster="git diff master...HEAD"
-alias gitundopush="git push -f origin HEAD^:main"
+alias gitcommitsmaster="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative master..HEAD"
 
 alias historysearch="history | fzf +s --tac"
 
