@@ -118,12 +118,21 @@ getnetworkinfo() {
 }
 
 # https://stackoverflow.com/questions/4421633/who-is-listening-on-a-given-tcp-port-on-mac-os-x
-portlistening() {
-    if [ $# -eq 0 ]; then
-        sudo lsof -iTCP -sTCP:LISTEN -n -P
-    elif [ $# -eq 1 ]; then
-        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
-    else
-        echo "Usage: listening [pattern]"
-    fi
+lsoflisten() {
+  if [ $# -eq 0 ]; then
+      sudo lsof -iTCP -sTCP:LISTEN -n -P
+  elif [ $# -eq 1 ]; then
+      sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+  else
+      echo "Usage: listening [pattern]"
+  fi
 }
+
+portlistening() {
+  if command -v sonar >/dev/null 2>&1; then
+      sonar list --stats -a
+  else
+      lsoflisten "$@"
+  fi
+}
+
